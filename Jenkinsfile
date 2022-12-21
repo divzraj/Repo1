@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'jenkinsnode1'
+            label 'jenkinsnode1'  //this is the name of label name in node which is given as jenkinsnode1 
         }
     }
 
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Build using Maven'){
             steps {
-                // Run Maven on a Unix agent.
+                // Run Maven on a jenkinsnode1 agent.
                 sh "mvn clean verify"
 
             }
