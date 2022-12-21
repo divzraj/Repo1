@@ -20,7 +20,7 @@ pipeline {
         stage('Build using Maven'){
             steps {
                 // Run Maven on a jenkinsnode1 agent.
-                sh "mvn clean verify"
+                sh "mvn clean install"
 
             }
     }
