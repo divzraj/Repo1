@@ -1,4 +1,9 @@
 pipeline {
+environment{
+    reg = "https://hub.docker.com/u/divya123raj"
+    regcred = 'docker cred'
+    dockerImage = ''
+}
     agent {
         node {
             label 'jenkinsnode1'  //this is the name of label name in node which is given as jenkinsnode1 
@@ -28,6 +33,29 @@ pipeline {
             steps{
                 deploy adapters: [tomcat9(credentialsId: 'tomcatcred', path: '', url: 'http://15.206.92.28:8080/')], contextPath: null, war: 'target/*.war'
             }
+        }
+        stage('Docker image create with Dockerfile in github'){
+            steps{
+            script {
+                dockerImage = docker.build reg + ':$BUILD_NUMBER'
+
+                }
+            }
+        }
+
+        stage('deploy to dockerhub'){
+            steps{
+            script{
+            docker.withRegistry('', regcred ){
+            dockerImage.push()
+            }
+            }
+            }
+
+            stage ('clean up'){
+            steps{
+            sh "docker rmi $registry:$BUILD_NUMBER"
+            }        }
         }
                 
 }
