@@ -1,1 +1,4 @@
-FROM tomcat:9.0.70-jdk8-corretto-al2
+FROM tomcat:latest
+ADD .target/* /usr/local/tomcat/webapps/
+EXPOSE 8080
+CMD ["catalina.sh, "run"]
