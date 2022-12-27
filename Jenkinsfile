@@ -65,7 +65,7 @@ pipeline {
                 label 'dockerhost'
             }
             steps{
-                sh 'docker run -d -t --name tomcatcon -p 8080:80 divya123raj/jenk:$BUILD_NUMBER'
+                sh 'docker run -d --name tomcatcon -p 8081:80 divya123raj/jenk:$BUILD_NUMBER'
             }
         }
  
