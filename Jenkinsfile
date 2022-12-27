@@ -57,5 +57,15 @@ pipeline {
                 sh 'docker push divya123raj/jenk:$BUILD_NUMBER'
             }
         }
+
+        stage ('Create container'){
+            agent{
+                label 'dockerhost'
+            }
+            steps{
+                sh 'docker run -d -t --name 'tomcatcon' -p 8080:80 divya123raj/jenk:$BUILD_NUMBER'
+            }
+        }
+ 
     }
 }
