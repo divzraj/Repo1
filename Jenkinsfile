@@ -34,24 +34,31 @@ pipeline {
         stage('docker build'){
             agent{
                 label 'dockerhost'
-                
+            }
+   
             steps{
                 sh 'docker build -t divya123raj/jenk:$BUILD_NUMBER .' // dockerhubusername:imagename:jenkinsbuildnumber nad dockerfile in current directory
             }
         }
         stage ('login to docker'){
+            agent{
+                label 'dockerhost'
+            }
             steps{
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' 
                 // first we echo pass and then login with username and output of first command and login
             }
         }
         stage ('push to repo dockerhub'){
+            agent{
+                label 'dockerhost'
+            }
             steps{
                 sh 'docker push divya123raj/jenk:$BUILD_NUMBER'
             }
         }
     }
-    }
+    
     post{
         always{
             sh 'docker logout'
