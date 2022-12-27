@@ -10,6 +10,8 @@ pipeline {
     }
 
     stages {
+        
+
         stage('get code') {
             agent{
                 label 'mavennode'
@@ -32,6 +34,7 @@ pipeline {
         stage('docker build'){
             agent{
                 label 'dockerhost'
+                
             steps{
                 sh 'docker build -t divya123raj/jenk:$BUILD_NUMBER .' // dockerhubusername:imagename:jenkinsbuildnumber nad dockerfile in current directory
             }
