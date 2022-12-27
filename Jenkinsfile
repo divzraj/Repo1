@@ -28,7 +28,7 @@ pipeline {
             }
             steps {
                 // Get some code from a GitHub repository
-                sh 'mvn clean compile'
+                sh 'mvn clean package'
             }
         }
         stage('docker build'){
