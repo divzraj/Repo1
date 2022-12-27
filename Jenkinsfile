@@ -29,6 +29,7 @@ pipeline {
             steps {
                 // Get some code from a GitHub repository
                 sh 'mvn clean package'
+                stash 'warfile'
             }
         }
         stage('docker build'){
@@ -37,6 +38,7 @@ pipeline {
             }
    
             steps{
+                unstash 'warfile'
                 sh 'docker build -t divya123raj/jenk:$BUILD_NUMBER .' // dockerhubusername:imagename:jenkinsbuildnumber nad dockerfile in current directory
             }
         }
